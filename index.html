@@ -81,10 +81,10 @@
           var lottery = (360 / total) * active - 360 / total / 2; //计算定位到指定商品在商品的中间
           var rotate = lottery + canGetRanDom; //总旋转度数
           this.rotate = rotate;
-          //setTimeout(() => {
+          setTimeout(() => {
             //alert("中奖");
-            //this.isSpin = true;
-          //}, 3000);
+            this.isSpin = true;
+          }, 6);
         },
       },
     });
