@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <style>
+    .box {
+      position: relative;
+      width: 600px;
+      height: 600px;
+    }
+
+    .main {
+      position: absolute;
+      width: 13%;
+      left: 50%;
+      top: 50%;
+      transform: translate(-50%, -50%);
+    }
+
+    img {
+      width: 100%;
+      height: 100%;
+    }
+
+    .start {
+      transition: all 3s ease-in-out;
+    }
+
+    .reset {
+      transition: none;
+      transform: none;
+    }
+  </style>
+
+  <body>
+    <div class="box">
+      <img
+        :class="isSpin ? 'reset' : 'start'"
+        :style="{transform: !isSpin ? `rotate(-${rotate}deg)` :'none'}"
+        src="http://sucai.suoluomei.cn/sucai_zs/images/20190926090636-1.png"
+        alt=""
+      />
+      <div class="main" @click="startDraw()">
+        <img
+          src="http://sucai.suoluomei.cn/sucai_zs/images/20190924162756-kaishiaa.png"
+          alt=""
+        />
+      </div>
+    </div>
+  </body>
+  <script src="https://lib.baomitu.com/vue/2.6.9/vue.js"></script>
+  <script>
+    new Vue({
+      el: ".box",
+      data() {
+        return {
+          isSpin: true,
+          rotate: 0,
+        };
+      },
+      methods: {
+        startDraw() {
+          if (this.isSpin) {
+            this.isSpin = false;
+            this.spinPrize();
+          } else {
+            alert("正在抽奖，请勿重复点击");
+          }
+        },
+
+        spinPrize() {
+          var canGetRanDom = 0;//中奖范围内的随机度数
+          //canGetRanDom = 720+Math.floor(Math.random() * 1000) + 5
+          canGetRanDom =1400
+          var math = 1; //转到转盘第几个奖品
+          var active = math; //选中的奖品地址是需要后台传给你
+          var total = 14; //奖品的总个数
+          var lottery = (360 / total) * active - 360 / total / 2; //计算定位到指定商品在商品的中间
+          var rotate = lottery + canGetRanDom; //总旋转度数
+          this.rotate = rotate;
+          setTimeout(() => {
+            alert("中奖");
+            this.isSpin = true;
+          }, 3000);
+        },
+      },
+    });
+  </script>
+</html>
